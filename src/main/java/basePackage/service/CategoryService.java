@@ -6,9 +6,21 @@ import basePackage.payload.Status;
 import basePackage.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public record CategoryService (CategoryRepository repository)
         implements BaseService<CategoryDto, Category> {
+
+    @Override
+    public List<Category> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Category get(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 
     @Override
     public Status add(CategoryDto categoryDto) {

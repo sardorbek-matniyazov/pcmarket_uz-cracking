@@ -6,6 +6,7 @@ import basePackage.service.BrandService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,16 @@ import static basePackage.controller.CategoryController.handleValidationExceptio
 @RestController
 @RequestMapping(value = "/brand")
 public record BrandController(BrandService service) {
+
+    @GetMapping(value = "/all")
+    public HttpEntity<?> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public HttpEntity<?> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.get(id));
+    }
 
     @PostMapping(value = "/add")
     public HttpEntity<Status> add(@Valid @RequestBody BrandDto dto) {

@@ -20,6 +20,7 @@ import static basePackage.controller.CategoryController.handleValidationExceptio
 @RequestMapping(value = "product")
 public record ProductController (ProductService service) {
 
+
     @GetMapping(value = {"/all", "/"})
     public HttpEntity<List<Product>> getAll(){
         return ResponseEntity.ok(service.getAll());

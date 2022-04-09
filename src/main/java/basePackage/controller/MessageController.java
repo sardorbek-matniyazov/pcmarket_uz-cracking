@@ -18,6 +18,16 @@ import static basePackage.controller.CategoryController.handleValidationExceptio
 @RequestMapping(value = "/message")
 public record MessageController(MessageService service) {
 
+    @GetMapping(value = "/all")
+    public HttpEntity<?> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping(value = "/{id}")
+    public HttpEntity<?> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.get(id));
+    }
+
     @PostMapping(value = "/add")
     public HttpEntity<Status> add(@Valid @RequestBody MessageDto dto) {
         Status add = service.add(dto);

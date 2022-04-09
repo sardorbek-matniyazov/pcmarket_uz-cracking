@@ -6,9 +6,21 @@ import basePackage.payload.Status;
 import basePackage.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public record MessageService (MessageRepository repository)
         implements BaseService<MessageDto, Message> {
+
+    @Override
+    public List<Message> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Message get(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 
     @Override
     public Status add(MessageDto messageDto) {

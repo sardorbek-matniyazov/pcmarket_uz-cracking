@@ -6,8 +6,21 @@ import basePackage.payload.Status;
 import basePackage.repository.BrandRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public record BrandService (BrandRepository repository) implements BaseService<BrandDto, Brand>{
+
+    @Override
+    public List<Brand> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Brand get(Long id) {
+        return repository.findById(id).orElse(new Brand());
+    }
+
     @Override
     public Status add(BrandDto brandDto) {
         if (repository.existsByName(brandDto.getName()))
@@ -60,7 +73,7 @@ public record BrandService (BrandRepository repository) implements BaseService<B
         if (!repository.existsById(id))
             return Status.builder()
                     .active(false)
-                    .message("there is no category with id " + id)
+                    .message("there is no brand with id " + id)
                     .build();
 
         try {

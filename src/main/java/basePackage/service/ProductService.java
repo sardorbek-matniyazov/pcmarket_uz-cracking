@@ -112,11 +112,14 @@ public record ProductService (ProductRepository repository,
                 .build();
     }
 
+    @Override
     public List<Product> getAll() {
         return repository.findAll();
     }
 
-    public Product get(long id) {
+    @Override
+    public Product get(Long id) {
         return repository.findById(id).orElse(null);
     }
+
 }
